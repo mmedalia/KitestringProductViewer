@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Product Viewer Embedded HTML Collection</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i|Roboto+Condensed:400,700" rel="stylesheet">
+
+		<style>
+			.mpStyle{
+				display: none;
+				background-color: rgb(255,255,255);
+			}
+
+			.mpStyle .title{
+				font-family: 'Roboto Condensed', sans-serif;
+				font-size: 30px;
+				font-weight: bold;
+				color: rgb(31, 67, 124);
+				border-bottom: solid 5px rgb(31, 67, 124);
+			}
+
+			.mpStyle .body{
+				font-family: 'Crimson Text', serif;
+				font-size: 16px;
+				padding-top: 4px;
+				line-height: 100%;
+				color: rgb(39, 57, 86);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="callout1" class="mpStyle">
+			<div class="title">TITLE NUMBER 1</div>
+			<span class="headerLine"><span>
+			<div class="body">Now is the time for all good men to come to the aid of their country.  The quick brown fox jumped over the lazy dog.</div>
+		</div>
+		<div id="callout2" class="mpStyle">
+			<div class="title">TITLE NUMBER 2</div>
+			<span class="headerLine"><span>
+			<div class="body">Now is the time for all good men to come to the aid of their country.  The quick brown fox jumped over the lazy dog.</div>
+		</div>
+		<div id="callout3" class="mpStyle">
+			<div class="title">TITLE NUMBER 3</div>
+			<span class="headerLine"><span>
+			<div class="body">Now is the time for all good men to come to the aid of their country.  The quick brown fox jumped over the lazy dog.</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		
+			$(document).ready(function(){
+
+				//GET THE URL ON PAGELOAD AND LOOK FOR ANY DELIMITED INFORMATION
+				var url = window.location.href;
+		        try{
+		            var arguments = url.split('#')[1].split('=');
+		            //arguments.shift();
+		            if(arguments.length >= 2){
+		            	//HARD CODED TO FIND AN ELEMENT TO TURN ON.
+		            	var command = arguments[0];
+		            	var element = arguments[1];
+
+		            	//FUTURE FUNCTIONALITY WOULD BE TO SEND SPECIFIC CAMMANDS AND VARS TO HANDLE THEM.
+
+		            	$("#" + element).css("display", "block");
+		            }
+		            
+		            console.log("args : " + arguments[0]);
+		        }catch(err){
+		            console.log("No delimiter found");
+		        }
+
+				
+			});
+			
+		</script>
+	</body>
+
+	
+</html>

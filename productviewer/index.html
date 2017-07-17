@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Kitestring Overstock Product Viewer Demo</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #FFFFFF;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+			#topMenu{
+				position: absolute;
+				top:0;
+				left: 0;
+				z-index: 500;
+			}
+
+			#info {
+				color: #fff;
+				position: absolute;
+				top: 10px;
+				width: 100%;
+				text-align: center;
+				z-index: 100;
+				display:block;
+
+			}
+			#progressBar {
+			    position: absolute;
+			    width: 100%;
+			    height: 30px;
+			    top:200px;
+			    background-color: grey;
+			}
+			#theBar {
+			    position: absolute;
+			    z-index: 0;
+			    width: 1%;
+			    height: 100%;
+			    background-color: green;
+			}
+			#progressLabel {
+				position: relative;
+			    width: 100%;
+			    height: 30px;
+			    text-align: center; /* If you want to center it */
+			    line-height: 30px; /* Set the line-height to the same as the height of the progress bar container, to center it vertically */
+			    color: white;
+			    z-index: 1;
+			}
+
+			.text-label{
+				font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+				background-color: rgba(255, 255, 255, 0.4);
+				padding:10px;
+				text-transform: uppercase;
+				color: rgba(25, 25, 25, 255);;
+			}
+
+			.center-div{
+				position: absolute;
+				margin: auto;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				border-radius: 3px;
+				text-align: center;
+			}
+
+			#gazePointer{
+				display:none;
+			}
+
+			#gazepointLeft{
+				background-color: yellow;
+				width: 5px;
+				height: 5px;
+				right: -50%;
+			}
+
+			#gazepointRight{
+				background-color: yellow;
+				width: 5px;
+				height: 5px;
+				right: 50%;
+			}
+
+			.hiddenObject{
+				visibility: hidden;
+			}
+
+			a { color: skyblue }
+		</style>
+	</head>
+	<body>
+		<div id="gazePointer">
+			<div id="gazepointLeft" class="center-div"></div>
+			<div id="gazepointRight" class="center-div"></div>
+		</div>
+		<div id="topMenu">
+			<input id="standardViewBtn" type="button" value = "Standard View" onclick="standView()" />
+			<input id="stereoViewBtn" type="button" value = "Stereo View" onclick="stereoView()" />
+		</div>
+		<div id="progressBar">
+		  <div id="theBar">
+		  </div>
+		  <div id="progressLabel">10%</div>
+		</div>
+
+		<div style="display:none;">
+		  <img id="source" src="images/checkerboard.jpg"
+		       width="300" height="227">
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="js/three.js"></script>
+		<script src="js/tween.js"></script>
+		<script src="js/CSS3DRenderer.js"></script>
+		<script src="js/StereoEffect.js"></script>
+		<script src="js/DeviceOrientationControls.js"></script>
+		<script src="js/ColladaLoader.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/Detector.js"></script>
+		<script src="js/stats.min.js"></script>
+		<script src="modelLoader.js"></script>
+		<script src="interfaceBuilder.js"></script>
+		<script src="main.js"></script>
+
+		<script>
+
+			$(document).ready(function(){
+
+			    $('#standardViewBtn').on('click touchstart', function(e) {
+			    	e.preventDefault();
+			        standView();
+			    });
+
+			    $('#stereoViewBtn').on('click touchstart', function(e) {
+			    	e.preventDefault();
+			        stereoView();
+			    });
+
+			});
+
+			function standView(){
+				sceneCreator.sceneSettings.controlType = "orbit";
+				sceneCreator.sceneSettings.renderType = "standard";
+				document.getElementById("gazePointer").style.display = "none";
+				$(document).find('.text-label').removeClass('hiddenObject');
+				sceneCreator.onResize();
+			}
+
+			function stereoView(){
+				sceneCreator.sceneSettings.controlType = "stereo";
+				sceneCreator.sceneSettings.renderType = "stereo";
+				document.getElementById("gazePointer").style.display = "block";
+				$(document).find('.text-label').addClass('hiddenObject');
+				sceneCreator.onResize();
+			}
+
+			function explode(){
+				sceneCreator._explodeText();
+			}
+		</script>
+
+	</body>
+</html>
